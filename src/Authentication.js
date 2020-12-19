@@ -2,8 +2,13 @@ import * as AuthSession from 'expo-auth-session'
 import QueryString from 'qs'
 import randomatic from 'randomatic'
 import { auth0 } from '../secrets'
+import { Connection } from '@kachnitel/efetch'
 
 export default class Authentication {
+  constructor () {
+    this.connection = new Connection(auth0.domain)
+  }
+
   /**
    * @return Promise
    * {
@@ -73,7 +78,7 @@ export default class Authentication {
    *
    * @return Promise | token
    */
-  getOAuthToken = (codeVerifier, code) => this.connection.post( // TODO: connection
+  getOAuthToken = (codeVerifier, code) => this.connection.post(
     'oauth/token',
     {
       grant_type: 'authorization_code',

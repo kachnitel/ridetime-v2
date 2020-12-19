@@ -3,7 +3,6 @@ import { makeAutoObservable } from 'mobx'
 class ApplicationStore {
   userId: ?Number = null // Persist
   refreshToken: ?String = null // Persist
-  accessToken: ?String = null
 
   constructor () {
     makeAutoObservable(this)
@@ -15,4 +14,6 @@ class ApplicationStore {
   }
 }
 
-export default new ApplicationStore()
+const store = new ApplicationStore()
+
+export default store

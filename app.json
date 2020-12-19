@@ -4,6 +4,9 @@
     "slug": "ridetime-v2",
     "scheme": "ridetime-v2",
     "version": "0.0.0",
+    "extra": {
+      "apiVersion": "0.11.0"
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
