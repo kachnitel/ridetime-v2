@@ -2,7 +2,8 @@
   "expo": {
     "name": "ridetime-v2",
     "slug": "ridetime-v2",
-    "version": "1.0.0",
+    "scheme": "ridetime-v2",
+    "version": "0.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -30,9 +31,6 @@
         "ACCESS_FINE_LOCATION",
         "NOTIFICATIONS"
       ]
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
