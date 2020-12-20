@@ -1,10 +1,10 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import ApiConnection from '../api/ApiConnection'
 import * as SecureStore from 'expo-secure-store'
+import { reloadAsync } from 'expo-updates'
 
 class ApplicationStore {
-  userId: ?Number = null // Persist
-  // refreshToken: ?String = null // Persist
+  userId: ?Number = null
 
   constructor () {
     makeAutoObservable(this)
@@ -31,11 +31,8 @@ class ApplicationStore {
   }
 
   signOut = () => {
-    // REVIEW: Replacing with a new instance would be much cleaner
-    this.userId = ApplicationStore.prototype.userId
-
     SecureStore.deleteItemAsync('refreshToken')
-    ApiConnection.addHeaders({ 'Authorization': '' })
+    reloadAsync()
   }
 }
 
