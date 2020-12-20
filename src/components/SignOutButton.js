@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'react-native'
-import ApiConnection from '../api/ApiConnection'
 import Authentication from '../Authentication'
 import ApplicationStore from '../stores/ApplicationStore'
 
@@ -15,7 +14,6 @@ export default class SignOutButton extends Component {
           return
         }
 
-        ApiConnection.addHeaders({ 'Authorization': '' })
         ApplicationStore.signOut()
       }} />
     )
