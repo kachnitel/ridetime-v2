@@ -17,7 +17,7 @@ class ApplicationStore {
     try {
       signin = await ApiConnection.post('signin', { /* TODO: Notifications token */ })
     } catch (error) {
-      console.log('Error signing in', JSON.stringify(error.data.response.status), ';', ApplicationStore.accessToken)
+      console.log('Error signing in', JSON.stringify(error.data.response.status))
       return
     }
 
@@ -26,6 +26,8 @@ class ApplicationStore {
     }
 
     runInAction(() => { this.userId = signin.user?.id })
+
+    return signin
   }
 
   signOut = () => {

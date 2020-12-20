@@ -29,22 +29,25 @@ export default class App extends React.Component {
     let token = await auth.refreshToken(refreshToken)
     if (!token?.access_token) {
       console.log('Error refreshing token')
+      this.setState({ loading: false })
       return
     }
 
-    await ApplicationStore.signIn(token)
+    let result = await ApplicationStore.signIn(token)
+    console.log(result)
     this.setState({ loading: false })
   }
 
   render () {
     return (
       <View style={styles.container}>
-        <Observer>{() => <>
-          <Text>User: { ApplicationStore.userId }</Text>
-          { this.state.loading
-            ? <Text>Loading...</Text>
-            : ApplicationStore.userId ? <SignOutButton /> : <SignInButton /> }
-        </>}</Observer>
+        { this.state.loading
+          ? <Text>Loading...</Text>
+          : <Observer>{() => <>
+            <Text>User: { ApplicationStore.userId }</Text>
+            { ApplicationStore.userId ? <SignOutButton /> : <SignInButton /> }
+          </>}</Observer>
+        }
         <StatusBar style="auto" />
       </View>
     )
