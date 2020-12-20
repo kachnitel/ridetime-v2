@@ -88,4 +88,51 @@ export default class Authentication {
       redirect_uri: auth0.redirectUri
     }
   )
+
+  /**
+   * Exchange refresh_token for access_token
+   *
+   * POST https://YOUR_AUTH0_DOMAIN/oauth/token
+   * @return Promise
+   * {
+   *   "access_token": "eyJ...MoQ",
+   *   "expires_in": 86400,
+   *   "scope": "openid offline_access",
+   *   "id_token": "eyJ...0NE",
+   *   "token_type": "Bearer"
+   * }
+   */
+  refreshToken = (refreshToken: String) => this.connection.post(
+    'oauth/token',
+    {
+      grant_type: 'refresh_token',
+      client_id: auth0.clientId,
+      refresh_token: refreshToken
+    }
+  )
+
+  /**
+   * GET /userinfo (JSON)
+   * Used for new user sign up
+   * {
+   *  "sub": "google-oauth2|123",
+   *  "given_name": "Kach",
+   *  "family_name": "Na",
+   *  "nickname": "kachnitel",
+   *  "name": "Kach Na",
+   *  "picture": "https://lh6.googleusercontent.com/.../photo.jpg",
+   *  "locale": "en-GB",
+   *  "updated_at": "2020-11-24T05:42:11.141Z",
+   *  "email": "person@place.ca",
+   *  "email_verified": true
+   * }
+   *
+   * @return Promise | user object
+   */
+  getUserInfo = (apiToken: String) => {
+    this.connection.addHeaders({
+      'Authorization': 'Bearer ' + apiToken
+    })
+    return this.connection.get('userinfo')
+  }
 }
