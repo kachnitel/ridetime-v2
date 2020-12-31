@@ -1,16 +1,18 @@
 import { StatusBar } from 'expo-status-bar'
 import { Observer } from 'mobx-react'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import SignInButton from './src/components/SignInButton'
-import SignOutButton from './src/components/SignOutButton'
 import ApplicationStore from './src/stores/ApplicationStore'
 import * as SecureStore from 'expo-secure-store'
 import Authentication from './src/Authentication'
+import { NavigationContainer } from '@react-navigation/native'
+import AuthStack from './src/navigation/AuthStack'
+import AuthLoadingScreen from './src/navigation/screens/AuthLoadingScreen'
+import AppStack from './src/navigation/AppStack'
 
 export default class App extends React.Component {
   state = {
-    loading: true
+    loading: true,
+    status: 'Initializing'
   }
 
   componentDidMount () {
@@ -25,6 +27,7 @@ export default class App extends React.Component {
       return
     }
 
+    this.setState({ status: 'Refreshing token' })
     let auth = new Authentication()
     let token = await auth.refreshToken(refreshToken)
     if (!token?.access_token) {
@@ -33,31 +36,19 @@ export default class App extends React.Component {
       return
     }
 
-    let result = await ApplicationStore.signIn(token)
-    console.log(result)
+    this.setState({ status: 'Loading user' })
+    await ApplicationStore.signIn(token)
     this.setState({ loading: false })
   }
 
   render () {
-    return (
-      <View style={styles.container}>
-        { this.state.loading
-          ? <Text>Loading...</Text>
-          : <Observer>{() => <>
-            <Text>User: { ApplicationStore.userId }</Text>
-            { ApplicationStore.userId ? <SignOutButton /> : <SignInButton /> }
-          </>}</Observer>
-        }
-        <StatusBar style="auto" />
-      </View>
-    )
+    return this.state.loading
+      ? (<AuthLoadingScreen status={this.state.status} />)
+      : (<Observer>{() => <>
+        <NavigationContainer>
+          { ApplicationStore.userId ? <AppStack /> : <AuthStack /> }
+        </NavigationContainer>
+        <StatusBar style='auto' />
+      </>}</Observer>)
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})

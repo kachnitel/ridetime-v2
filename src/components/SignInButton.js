@@ -1,21 +1,47 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button } from 'react-native'
+import { ActivityIndicator, Button } from 'react-native'
 import Authentication from '../Authentication'
 import ApplicationStore from '../stores/ApplicationStore'
 
 export default class SignInButton extends Component {
-  render() {
-    return (
-      <Button title='Sign in' onPress={async () => {
-        let auth = new Authentication()
-        let tokenResult = await auth.login()
-        if (!tokenResult?.access_token) {
-          console.log('Error fetching authentication token', tokenResult)
-          return
-        }
-
-        ApplicationStore.signIn(tokenResult)
-      }} />
-    )
+  state = {
+    loading: false
   }
+
+  _signInAsync = async () => {
+    this.setState({ loading: true })
+    let auth = new Authentication()
+    let tokenResult = await auth.login()
+    if (!tokenResult?.access_token) {
+      console.log('Error fetching authentication token', tokenResult)
+      return
+    }
+
+    let result = await ApplicationStore.signIn(tokenResult)
+    if (!result.success) {
+      if (result.errorCode === 404) {
+        // Navigate to SignUp if user is not found at API
+        this.props.navigation.navigate('SignUp', {
+          token: tokenResult
+        })
+      } else {
+        console.log('signIn error', result)
+      }
+
+      this.setState({ loading: false })
+    }
+  }
+
+  render() {
+    return this.state.loading
+      ? <ActivityIndicator />
+      : <Button title='Sign in' onPress={this._signInAsync} />
+  }
+}
+
+SignInButton.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 }
