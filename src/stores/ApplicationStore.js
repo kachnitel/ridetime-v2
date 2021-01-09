@@ -3,7 +3,7 @@ import ApiConnection from '../api/ApiConnection'
 import * as SecureStore from 'expo-secure-store'
 import { reloadAsync } from 'expo-updates'
 
-class ApplicationStore {
+export default class ApplicationStore {
   userId: ?Number = null
 
   constructor () {
@@ -35,5 +35,3 @@ class ApplicationStore {
     reloadAsync()
   }
 }
-
-export default new ApplicationStore()

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { ActivityIndicator, Button } from 'react-native'
 import Authentication from '../Authentication'
-import ApplicationStore from '../stores/ApplicationStore'
+import { StoreContext } from '../StoreContext'
 
 export default class SignInButton extends Component {
   state = {
@@ -18,7 +18,8 @@ export default class SignInButton extends Component {
       return
     }
 
-    let result = await ApplicationStore.signIn(tokenResult)
+    let AppStore = this.context.application
+    let result = await AppStore.signIn(tokenResult)
     if (!result.success) {
       if (result.errorCode === 404) {
         // Navigate to SignUp if user is not found at API
@@ -39,6 +40,8 @@ export default class SignInButton extends Component {
       : <Button title='Sign in' onPress={this._signInAsync} />
   }
 }
+
+SignInButton.contextType = StoreContext
 
 SignInButton.propTypes = {
   navigation: PropTypes.shape({

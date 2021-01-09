@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Button } from 'react-native'
 import Authentication from '../Authentication'
-import ApplicationStore from '../stores/ApplicationStore'
+import { StoreContext } from '../StoreContext'
 
 export default class SignOutButton extends Component {
   render() {
+    let AppStore = this.context.application
     return (
       <Button title='Sign out' onPress={async () => {
         let auth = new Authentication()
@@ -14,8 +15,10 @@ export default class SignOutButton extends Component {
           return
         }
 
-        ApplicationStore.signOut()
+        AppStore.signOut()
       }} />
     )
   }
 }
+
+SignOutButton.contextType = StoreContext

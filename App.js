@@ -1,18 +1,25 @@
 import { StatusBar } from 'expo-status-bar'
 import { Observer } from 'mobx-react'
 import React from 'react'
-import ApplicationStore from './src/stores/ApplicationStore'
 import * as SecureStore from 'expo-secure-store'
 import Authentication from './src/Authentication'
 import { NavigationContainer } from '@react-navigation/native'
 import AuthStack from './src/navigation/AuthStack'
 import AuthLoadingScreen from './src/navigation/screens/AuthLoadingScreen'
 import AppStack from './src/navigation/AppStack'
+import { StoreContext } from './src/StoreContext'
+import ApplicationStore from './src/stores/ApplicationStore'
 
 export default class App extends React.Component {
   state = {
     loading: true,
     status: 'Initializing'
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.AppStore = new ApplicationStore()
   }
 
   componentDidMount () {
@@ -37,7 +44,7 @@ export default class App extends React.Component {
     }
 
     this.setState({ status: 'Loading user' })
-    await ApplicationStore.signIn(token)
+    await this.AppStore.signIn(token)
     this.setState({ loading: false })
   }
 
@@ -46,7 +53,11 @@ export default class App extends React.Component {
       ? (<AuthLoadingScreen status={this.state.status} />)
       : (<Observer>{() => <>
         <NavigationContainer>
-          { ApplicationStore.userId ? <AppStack /> : <AuthStack /> }
+          <StoreContext.Provider value={{
+            application: this.AppStore
+          }}>
+            { this.AppStore.userId ? <AppStack /> : <AuthStack /> }
+          </StoreContext.Provider>
         </NavigationContainer>
         <StatusBar style='auto' />
       </>}</Observer>)
