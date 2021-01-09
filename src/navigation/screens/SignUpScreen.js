@@ -1,25 +1,36 @@
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import React from 'react'
+import { Text, View, StyleSheet, TextInput } from 'react-native'
 import Authentication from '../../Authentication'
 
-function SignUpScreen ({ route }) {
-  const [userInfo, setUserInfo] = useState()
-  let token = route.params.token
-
-  let getInfo = async () => {
-    let auth = new Authentication()
-    let userInfo = await auth.getUserInfo(token.access_token)
-    setUserInfo(userInfo)
+export default class SignUpScreen extends React.Component {
+  state = {
+    userInfo: null
   }
-  useEffect(() => { getInfo() })
 
-  return (
-    <View style={styles.container}>
+  getInfo = async () => {
+    let auth = new Authentication()
+    let userInfo = await auth.getUserInfo(this.props.route.params.token.access_token)
+    this.setState({ userInfo: userInfo })
+  }
+
+  componentDidMount () {
+    this.getInfo()
+  }
+
+  render() {
+    let userInfo = this.state.userInfo
+    return <View style={styles.container}>
       <Text> SignUpScreen </Text>
       <Text>{ userInfo?.name ?? 'Loading user information' }</Text>
+      <Text>{ JSON.stringify(userInfo) }</Text>
+      <TextInput
+        value={userInfo?.name}
+        onChangeText={(val) => this.setState({ userInfo: {...userInfo, name: val}})}
+        placeholder={'Name'}
+      />
     </View>
-  )
+  }
 }
 
 SignUpScreen.propTypes = {
@@ -31,8 +42,6 @@ SignUpScreen.propTypes = {
     })
   })
 }
-
-export default SignUpScreen
 
 const styles = StyleSheet.create({
   container: {

@@ -1,15 +1,20 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import { StoreContext } from '../../StoreContext'
 
-function HomeScreen () {
-  return (
-    <View style={styles.container}>
-      <Text> Home </Text>
-    </View>
-  )
+export default class HomeScreen extends React.Component {
+  render () {
+    return (
+      <View style={styles.container}>
+        <Text> Home </Text>
+        <Text>{ this.context.application.userId }</Text>
+      </View>
+    )
+  }
 }
 
-export default HomeScreen
+HomeScreen.contextType = StoreContext
+
 
 const styles = StyleSheet.create({
   container: {
