@@ -10,24 +10,41 @@ export default class ApplicationStore {
     makeAutoObservable(this)
   }
 
-  signIn = async (token) => {
+  signInAsync = async (token) => {
     ApiConnection.addHeaders({ 'Authorization': 'Bearer ' + token.access_token })
 
-    let signin
+    let result
     try {
-      signin = await ApiConnection.post('signin', { /* TODO: Notifications token */ })
+      result = await ApiConnection.post('signin', { /* TODO: Notifications token */ })
     } catch (error) {
       console.log('Error signing in', JSON.stringify(error.data.response.status))
       return
     }
 
+    return result.success
+      ? this._handleUserSignedIn(token, result.user)
+      : result
+  }
+
+  signUpAsync = async (token, userInfo) => {
+    // REVIEW: Auth header already set in SignIn when checking for user's existence
+
+    let result = await ApiConnection.post('signup', {
+      userInfo: userInfo
+    })
+
+    return this._handleUserSignedIn(token, result)
+  }
+
+  _handleUserSignedIn = (token, userData) => {
     if (token.refresh_token) {
       SecureStore.setItemAsync('refreshToken', token.refresh_token)
     }
 
-    runInAction(() => { this.userId = signin.user?.id })
+    runInAction(() => { this.userId = userData.id })
 
-    return signin
+    return userData
+    // TODO: Add to userStore and return user
   }
 
   signOut = () => {

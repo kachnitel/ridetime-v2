@@ -5176,7 +5176,7 @@ promise@^8.0.3:
   dependencies:
     asap "~2.0.6"
 
-prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -5557,6 +5557,13 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-material-ui-textfield@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/rn-material-ui-textfield/-/rn-material-ui-textfield-1.0.2.tgz#692482e49a8233427578e3a5618b1daf6e11527f"
+  integrity sha512-pOLLW6wvblkCvRymNFXEvcgww0bOC0p5v9eBi/cF/SCYXFRdELfp/VAkeVgP3jR+hM/DevkY3TIJxna8kzctPw==
+  dependencies:
+    prop-types "^15.5.9"
 
 rsvp@^4.8.4:
   version "4.8.5"

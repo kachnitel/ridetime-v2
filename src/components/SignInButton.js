@@ -19,7 +19,7 @@ export default class SignInButton extends Component {
     }
 
     let AppStore = this.context.application
-    let result = await AppStore.signIn(tokenResult)
+    let result = await AppStore.signInAsync(tokenResult)
     if (!result.success) {
       if (result.errorCode === 404) {
         // Navigate to SignUp if user is not found at API

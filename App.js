@@ -44,7 +44,7 @@ export default class App extends React.Component {
     }
 
     this.setState({ status: 'Loading user' })
-    await this.AppStore.signIn(token)
+    await this.AppStore.signInAsync(token)
     this.setState({ loading: false })
   }
 
