@@ -4,7 +4,6 @@ import { Text, View, StyleSheet, Button, ActivityIndicator } from 'react-native'
 import Authentication from '../../Authentication'
 import { OutlinedTextField } from 'rn-material-ui-textfield'
 import { StoreContext } from '../../StoreContext'
-import { Observer } from 'mobx-react'
 
 export default class SignUpScreen extends React.Component {
   state = {
@@ -34,7 +33,6 @@ export default class SignUpScreen extends React.Component {
     return <View style={styles.container}>
       <Text> SignUpScreen </Text>
       <Text>{ JSON.stringify(userInfo) }</Text>
-      <Observer>{() => <Text>ID: { this.context.application.userId }</Text>}</Observer>
       { userInfo === null
         ? <Text>Loading user information</Text>
         : <View style={styles.formContainer}>

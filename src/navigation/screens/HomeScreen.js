@@ -1,5 +1,6 @@
+import { Observer } from 'mobx-react'
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Button } from 'react-native'
 import { StoreContext } from '../../StoreContext'
 
 export default class HomeScreen extends React.Component {
@@ -7,7 +8,12 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text> Home </Text>
-        <Text>{ this.context.application.userId }</Text>
+        <Observer>
+          {() => <Text>{ this.context.user.currentUser.name }</Text>}
+        </Observer>
+        <Button title='Log user store' onPress={ () => {
+          console.log(this.context.user.users)
+        }} />
       </View>
     )
   }

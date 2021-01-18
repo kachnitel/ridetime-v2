@@ -9,6 +9,7 @@ import AuthLoadingScreen from './src/navigation/screens/AuthLoadingScreen'
 import AppStack from './src/navigation/AppStack'
 import { StoreContext } from './src/StoreContext'
 import ApplicationStore from './src/stores/ApplicationStore'
+import UserStore from './src/stores/UserStore'
 
 export default class App extends React.Component {
   state = {
@@ -16,10 +17,13 @@ export default class App extends React.Component {
     status: 'Initializing'
   }
 
+  stores = {}
+
   constructor (props) {
     super(props)
 
-    this.AppStore = new ApplicationStore()
+    this.stores.application = new ApplicationStore(this.stores)
+    this.stores.user = new UserStore(this.stores)
   }
 
   componentDidMount () {
@@ -44,7 +48,7 @@ export default class App extends React.Component {
     }
 
     this.setState({ status: 'Loading user' })
-    await this.AppStore.signInAsync(token)
+    await this.stores.application.signInAsync(token)
     this.setState({ loading: false })
   }
 
@@ -54,9 +58,9 @@ export default class App extends React.Component {
       : (<Observer>{() => <>
         <NavigationContainer>
           <StoreContext.Provider value={{
-            application: this.AppStore
+            ...this.stores
           }}>
-            { this.AppStore.userId ? <AppStack /> : <AuthStack /> }
+            { this.stores.user.currentUser.id ? <AppStack /> : <AuthStack /> }
           </StoreContext.Provider>
         </NavigationContainer>
         <StatusBar style='auto' />

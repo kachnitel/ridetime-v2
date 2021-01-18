@@ -4,10 +4,12 @@ import * as SecureStore from 'expo-secure-store'
 import { reloadAsync } from 'expo-updates'
 
 export default class ApplicationStore {
-  userId: ?Number = null
+  stores: Object = {}
 
-  constructor () {
-    makeAutoObservable(this)
+  constructor (stores: Object) {
+    makeAutoObservable(this, { stores: false })
+
+    this.stores = stores
   }
 
   signInAsync = async (token) => {
@@ -41,10 +43,13 @@ export default class ApplicationStore {
       SecureStore.setItemAsync('refreshToken', token.refresh_token)
     }
 
-    runInAction(() => { this.userId = userData.id })
+    let user
+    runInAction(() => {
+      user = this.stores.user.upsert(userData)
+      this.stores.user.setCurrentUserId(user.id)
+    })
 
-    return userData
-    // TODO: Add to userStore and return user
+    return user
   }
 
   signOut = () => {
