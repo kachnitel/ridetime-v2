@@ -60,7 +60,7 @@ export default class App extends React.Component {
           <StoreContext.Provider value={{
             ...this.stores
           }}>
-            { this.stores.user.currentUser.id ? <AppStack /> : <AuthStack /> }
+            { this.stores.user.currentUser ? <AppStack /> : <AuthStack /> }
           </StoreContext.Provider>
         </NavigationContainer>
         <StatusBar style='auto' />
