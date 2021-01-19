@@ -4,17 +4,12 @@ import {
   Dimensions,
   Image,
   // ImagePropTypes,
-  StyleSheet,
-  View
+  StyleSheet
 } from 'react-native'
 
-const ProfilePicture = ({ uri, style }) => {
-  return (
-    <View>
-      <Image source={{ uri: uri }} style={{ ...styles.image, ...style }} />
-    </View>
-  )
-}
+const ProfilePicture = ({ uri, style }) => (
+  <Image source={{ uri: uri }} style={{ ...styles.image, ...style }} />
+)
 
 ProfilePicture.propTypes = {
   style: PropTypes.any, // style: ImagePropTypes.style /FIXME: ImagePropTypes undefined
@@ -26,6 +21,6 @@ export default ProfilePicture
 const styles=StyleSheet.create({
   image: {
     aspectRatio: 1,
-    borderRadius: Dimensions.get('window').height
+    borderRadius: Dimensions.get('window').height // Defaults to 50% of size
   }
 })
