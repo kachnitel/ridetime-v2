@@ -38,6 +38,14 @@
             "error",
             "never"
         ],
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
         "react-native/no-unused-styles": 2,
         "react-native/split-platform-components": 2,
         "react-native/no-inline-styles": 2,
