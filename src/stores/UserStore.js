@@ -8,8 +8,6 @@ export default class UserStore {
     makeAutoObservable(this)
   }
 
-  addUser = (user: User) => !this.users.find((entity) => entity.id === user.id) && this.users.push(user)
-
   upsert = (data: Object) => {
     let user = this.users.find((entity) => entity.id === data.id) || new User(this)
 
@@ -19,7 +17,7 @@ export default class UserStore {
       }
     })
 
-    this.addUser(user)
+    !this.users.find((entity) => entity.id === user.id) && this.users.push(user)
 
     return user
   }
