@@ -2,21 +2,24 @@ import { Observer } from 'mobx-react'
 import React, { useContext } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import EditPicture from '../../components/EditPicture'
-import ProfilePicture from '../../components/ProfilePicture'
 import SignOutButton from '../../components/SignOutButton'
 import { StoreContext } from '../../StoreContext'
 import { User } from '../../stores/UserStore'
 
-function ProfileScreen () {
+const ProfileScreen = () => {
   let stores = useContext(StoreContext)
   let currentUser: User = stores.user.currentUser
+
   return (
     <View style={styles.container}>
       <Text> ProfileScreen </Text>
       <Observer>{ () => <>
         <Text>{ currentUser.name }</Text>
-        <ProfilePicture uri={ currentUser.picture } style={ styles.picture } />
-        <EditPicture uri={ currentUser.picture } style={ styles.picture } onSelect={console.log} />
+        <EditPicture
+          uri={ currentUser.picture }
+          onSelect={stores.user.uploadPictureAsync}
+          containerStyle={ styles.picture }
+        />
       </>}</Observer>
       <SignOutButton />
     </View>

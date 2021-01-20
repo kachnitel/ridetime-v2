@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx'
+import ApiConnection from '../api/ApiConnection'
 
 export default class UserStore {
   users: User[] = []
@@ -26,6 +27,11 @@ export default class UserStore {
 
   get currentUser () {
     return this.users.find((entity) => entity.id === this.currentUserId)
+  }
+
+  uploadPictureAsync = async (image: Object) => {
+    let result = await ApiConnection.postFile(`api/users/${this.currentUserId}/picture`, 'picture', image)
+    return this.upsert(result)
   }
 }
 

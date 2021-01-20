@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Alert } from 'react-native'
+import { Alert, ViewPropTypes } from 'react-native'
 import ProfilePicture from './ProfilePicture'
 import * as ImageManipulator from 'expo-image-manipulator'
 import * as ImagePicker from 'expo-image-picker'
@@ -36,7 +36,7 @@ const EditPicture = (props) => {
     props.onSelect(picture)
   }
 
-  return <TouchableOpacity onPress={selectPictureAsync}>
+  return <TouchableOpacity onPress={selectPictureAsync} containerStyle={ props.containerStyle }>
     <ProfilePicture {...props} />
   </TouchableOpacity>
 }
@@ -45,7 +45,8 @@ EditPicture.propTypes = {
   onSelect: PropTypes.func.isRequired,
   maxSize: PropTypes.number,
   minSize: PropTypes.number,
-  jpegCompression: PropTypes.number
+  jpegCompression: PropTypes.number,
+  containerStyle: ViewPropTypes.style
 }
 
 EditPicture.defaultProps = {
