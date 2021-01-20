@@ -1,6 +1,7 @@
 import { Observer } from 'mobx-react'
 import React, { useContext } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import EditPicture from '../../components/EditPicture'
 import ProfilePicture from '../../components/ProfilePicture'
 import SignOutButton from '../../components/SignOutButton'
 import { StoreContext } from '../../StoreContext'
@@ -15,6 +16,7 @@ function ProfileScreen () {
       <Observer>{ () => <>
         <Text>{ currentUser.name }</Text>
         <ProfilePicture uri={ currentUser.picture } style={ styles.picture } />
+        <EditPicture uri={ currentUser.picture } style={ styles.picture } onSelect={console.log} />
       </>}</Observer>
       <SignOutButton />
     </View>
