@@ -38,19 +38,19 @@ export default class SignUpScreen extends React.Component {
         : <View style={styles.formContainer}>
           <OutlinedTextField
             value={userInfo?.name}
-            onChangeText={(val) => this.setState({ userInfo: {...userInfo, name: val}})}
+            onChangeText={(val) => this.setState({ userInfo: { ...userInfo, name: val } })}
             label='Name'
             textContentType='name'
           />
           <OutlinedTextField
             value={userInfo?.email}
-            onChangeText={(val) => this.setState({ userInfo: {...userInfo, email: val}})}
+            onChangeText={(val) => this.setState({ userInfo: { ...userInfo, email: val } })}
             label='E-Mail'
             textContentType='emailAddress'
           />
           <OutlinedTextField
             value={userInfo?.hometown}
-            onChangeText={(val) => this.setState({ userInfo: {...userInfo, hometown: val}})}
+            onChangeText={(val) => this.setState({ userInfo: { ...userInfo, hometown: val } })}
             label='Home town'
             textContentType='addressCityAndState'
           />
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   formContainer: {
     width: '75%',
