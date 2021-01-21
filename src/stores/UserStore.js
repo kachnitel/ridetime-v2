@@ -1,4 +1,6 @@
 import { makeAutoObservable } from 'mobx'
+// eslint-disable-next-line react-native/split-platform-components
+import { ToastAndroid } from 'react-native'
 import ApiConnection from '../api/ApiConnection'
 
 export default class UserStore {
@@ -31,6 +33,13 @@ export default class UserStore {
 
   uploadPictureAsync = async (image: Object) => {
     let result = await ApiConnection.postFile(`api/users/${this.currentUserId}/picture`, 'picture', image)
+    return this.upsert(result)
+  }
+
+  updateUserAsync = async (user: User) => {
+    let result = await ApiConnection.put('api/users/' + user.id, user)
+
+    ToastAndroid.show(`User ${user.name}'s profile updated.`, ToastAndroid.SHORT)
     return this.upsert(result)
   }
 }
