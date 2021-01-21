@@ -1,52 +1,29 @@
 import { Observer } from 'mobx-react'
 import React from 'react'
-import { View, StyleSheet, Button } from 'react-native'
-import { OutlinedTextField } from 'rn-material-ui-textfield'
+import { View, StyleSheet } from 'react-native'
+import EditBasicUserInfo from '../../components/EditBasicUserInfo'
 import EditPicture from '../../components/EditPicture'
 import SignOutButton from '../../components/SignOutButton'
 import { StoreContext } from '../../StoreContext'
 
 export default class ProfileScreen extends React.Component {
-  state = {
-    userInfo: null
-  }
-
-  componentDidMount = () => {
-    // eslint-disable-next-line no-unused-vars
-    let { store, ...info } = this.context.user.currentUser
-    this.setState({ userInfo: info })
-  }
-
   render () {
+    // eslint-disable-next-line no-unused-vars
+    let { store, events, friends, ...userInfo } = this.context.user.currentUser
     return <View style={styles.container}>
       <Observer>{ () => <>
         <EditPicture
-          uri={this.state.userInfo?.picture }
+          uri={userInfo?.picture }
           onSelect={this.context.user.uploadPictureAsync}
           containerStyle={ styles.picture }
         />
-        <View style={ styles.formContainer }>
-          <OutlinedTextField
-            value={this.state.userInfo?.name}
-            onChangeText={(val) => this.setState({ userInfo: { ...this.state.userInfo, name: val } })}
-            label='Name'
-            textContentType='name'
-          />
-          <OutlinedTextField
-            value={this.state.userInfo?.email}
-            onChangeText={(val) => this.setState({ userInfo: { ...this.state.userInfo, email: val } })}
-            label='E-Mail'
-            textContentType='emailAddress'
-          />
-          <OutlinedTextField
-            value={this.state.userInfo?.hometown}
-            onChangeText={(val) => this.setState({ userInfo: { ...this.state.userInfo, hometown: val } })}
-            label='Home town'
-            textContentType='addressCityAndState'
-          />
-        </View>
+        <EditBasicUserInfo
+          submitAction={this.context.user.updateUserAsync}
+          submitTitle='Save'
+          userInfo={userInfo}
+          style={ styles.formContainer }
+        />
       </>}</Observer>
-      <Button title='Save' onPress={() => this.context.user.updateUserAsync(this.state.userInfo)} />
       <SignOutButton />
     </View>
   }

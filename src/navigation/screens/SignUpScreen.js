@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Text, View, StyleSheet, Button, ActivityIndicator } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 import Authentication from '../../Authentication'
-import { OutlinedTextField } from 'rn-material-ui-textfield'
 import { StoreContext } from '../../StoreContext'
+import EditBasicUserInfo from '../../components/EditBasicUserInfo'
 
 export default class SignUpScreen extends React.Component {
   state = {
-    userInfo: null,
-    loading: false
+    userInfo: null
   }
 
   componentDidMount () {
@@ -21,47 +20,22 @@ export default class SignUpScreen extends React.Component {
     this.setState({ userInfo: userInfo })
   }
 
-  _signUpAsync = async () => {
-    this.setState({ loading: true })
-
+  _signUpAsync = async (userInfo) => {
     let AppStore = this.context.application
-    return AppStore.signUpAsync(this.props.route.params.token, this.state.userInfo)
+    return AppStore.signUpAsync(this.props.route.params.token, userInfo)
   }
 
   render() {
     let userInfo = this.state.userInfo
     return <View style={styles.container}>
-      <Text> SignUpScreen </Text>
-      <Text>{ JSON.stringify(userInfo) }</Text>
       { userInfo === null
         ? <Text>Loading user information</Text>
-        : <View style={styles.formContainer}>
-          <OutlinedTextField
-            value={userInfo?.name}
-            onChangeText={(val) => this.setState({ userInfo: { ...userInfo, name: val } })}
-            label='Name'
-            textContentType='name'
-          />
-          <OutlinedTextField
-            value={userInfo?.email}
-            onChangeText={(val) => this.setState({ userInfo: { ...userInfo, email: val } })}
-            label='E-Mail'
-            textContentType='emailAddress'
-          />
-          <OutlinedTextField
-            value={userInfo?.hometown}
-            onChangeText={(val) => this.setState({ userInfo: { ...userInfo, hometown: val } })}
-            label='Home town'
-            textContentType='addressCityAndState'
-          />
-          { this.state.loading
-            ? <ActivityIndicator />
-            : <Button
-              title='Sign Up'
-              onPress={this._signUpAsync}
-            />
-          }
-        </View>
+        : <EditBasicUserInfo
+          submitAction={this._signUpAsync}
+          submitTitle='Sign up'
+          userInfo={userInfo}
+          style={ styles.formContainer }
+        />
       }
     </View>
   }
