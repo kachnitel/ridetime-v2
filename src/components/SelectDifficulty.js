@@ -1,4 +1,5 @@
 import React from 'react'
+import { Text } from 'react-native'
 import OutlinedSelectWithIcon from './OutlinedSelectWithIcon'
 import TrailDifficultyIcon, { icons } from './TrailDifficultyIcon'
 
@@ -14,9 +15,14 @@ const SelectDifficulty = (props) => {
       }
     })
 
+  let Footer = () => <Text>Select what trail difficulty you&apos;re comfortable riding</Text>
+
   return <OutlinedSelectWithIcon
     { ...props }
     options={options}
+    flatListProps={{
+      ListFooterComponent: Footer
+    }}
   />
 }
 

@@ -36,7 +36,8 @@ const SelectModal = ({
   hideMenu,
   options,
   selected,
-  onValueChange
+  onValueChange,
+  flatListProps
 }) => <Modal
   isVisible={menuVisible}
   onBackButtonPress={hideMenu}
@@ -57,12 +58,13 @@ const SelectModal = ({
         }}
       /> }
       keyExtractor={ (item, index) => item.label + index }
-      ListFooterComponent={() => <Text>Select what trail difficulty you&apos;re comfortable riding</Text>}
+      { ...flatListProps }
     />
   </View>
 </Modal>
 
 SelectModal.propTypes = {
+  flatListProps: PropTypes.object,
   hideMenu: PropTypes.func,
   menuVisible: PropTypes.bool,
   onValueChange: PropTypes.func,
@@ -75,6 +77,7 @@ const OutlinedSelectWithIcon = ({
   options,
   selected,
   onValueChange,
+  flatListProps,
   ...props
 }) => {
   let [menuVisible, setMenuVisible] = useState(false)
@@ -97,11 +100,13 @@ const OutlinedSelectWithIcon = ({
       options={options}
       selected={selected}
       onValueChange={onValueChange}
+      flatListProps={flatListProps}
     />
   </View>
 }
 
 OutlinedSelectWithIcon.propTypes = {
+  flatListProps: PropTypes.object,
   label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
