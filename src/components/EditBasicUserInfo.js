@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { View, ActivityIndicator, Button } from 'react-native'
 import { OutlinedTextField } from 'rn-material-ui-textfield'
+import SelectDifficulty from './SelectDifficulty'
 
 export default class EditBasicUserInfo extends Component {
   constructor (props) {
@@ -27,6 +28,7 @@ export default class EditBasicUserInfo extends Component {
         onChangeText={(val) => this.setState({ userInfo: { ...this.state.userInfo, email: val } })}
         label='E-Mail'
         textContentType='emailAddress'
+        keyboardType='email-address'
         disabled={this.state.loading}
       />
       <OutlinedTextField
@@ -35,6 +37,11 @@ export default class EditBasicUserInfo extends Component {
         label='Home town'
         textContentType='addressCityAndState'
         disabled={this.state.loading}
+      />
+      <SelectDifficulty
+        label='Experience'
+        selected={this.state.userInfo?.level}
+        onValueChange={(val) => this.setState({ userInfo: { ...this.state.userInfo, level: val } })}
       />
       { this.state.loading
         ? <ActivityIndicator />

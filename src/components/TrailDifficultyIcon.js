@@ -35,32 +35,38 @@ export const icons = {
   3: {
     icon: GreenCircle,
     label: 'Beginner',
-    color: Colors.difficultyLevels.green
+    color: Colors.difficultyLevels.green,
+    value: 3
   },
   4: {
     icon: BlueSquare,
     label: 'Intermediate',
-    color: Colors.difficultyLevels.blue
+    color: Colors.difficultyLevels.blue,
+    value: 4
   },
   5: {
     icon: BlackDiamond,
     label: 'Advanced',
-    color: Colors.difficultyLevels.black
+    color: Colors.difficultyLevels.black,
+    value: 5
   },
   6: {
     icon: DoubleBlackDiamond,
     label: 'Expert',
-    color: Colors.difficultyLevels.black
+    color: Colors.difficultyLevels.black,
+    value: 6
   },
   8: {
     icon: DoubleBlackDiamond,
     label: 'Pro',
-    color: Colors.difficultyLevels.orange
+    color: Colors.difficultyLevels.orange,
+    value: 8
   },
   0: {
     icon: TerrainPark,
     label: 'Other',
-    color: Colors.difficultyLevels.unknown
+    color: Colors.difficultyLevels.unknown,
+    value: 0
   }
 }
 

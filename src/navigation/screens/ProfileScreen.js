@@ -2,11 +2,9 @@ import { Observer } from 'mobx-react'
 import React from 'react'
 import { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { heightPercentageToDP } from 'react-native-responsive-screen'
 import EditBasicUserInfo from '../../components/EditBasicUserInfo'
 import EditPicture from '../../components/EditPicture'
 import SignOutButton from '../../components/SignOutButton'
-import TrailDifficultyIcon from '../../components/TrailDifficultyIcon'
 import { StoreContext } from '../../StoreContext'
 
 const ProfileScreen = () => {
@@ -29,7 +27,6 @@ const ProfileScreen = () => {
         style={ styles.formContainer }
       />
     </>}</Observer>
-    <TrailDifficultyIcon level={ 6 } size={ heightPercentageToDP(5) } />
     <SignOutButton />
   </View>
 }
@@ -43,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly'
   },
   picture: {
-    width: '50%'
+    width: '35%'
   },
   formContainer: {
     width: '70%'

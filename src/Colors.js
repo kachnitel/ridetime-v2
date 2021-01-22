@@ -6,5 +6,7 @@ export default {
     orange: '#f90',
     black: 'black',
     unknown: '#ccc'
-  }
+  },
+  lightBackground: '#efefef',
+  highlightItem: '#ddd'
 }
