@@ -46,9 +46,7 @@ const SelectModal = ({
   <View style={ styles.modal }>
     <FlatList
       contentContainerStyle={{ width: widthPercentageToDP(80) }}
-      data={Object.keys(options).map((optKey) => ({
-        ...options[optKey]
-      }))}
+      data={options}
       renderItem={({ item }) => <MenuItem
         { ...item }
         isSelected={ selected == item.value }
@@ -68,7 +66,7 @@ SelectModal.propTypes = {
   hideMenu: PropTypes.func,
   menuVisible: PropTypes.bool,
   onValueChange: PropTypes.func,
-  options: PropTypes.object,
+  options: PropTypes.array,
   selected: PropTypes.any
 }
 
@@ -92,6 +90,7 @@ const OutlinedSelectWithIcon = ({
         labelOffset={{ x1: -(heightPercentageToDP(4) + widthPercentageToDP(1) + 10) }} // HACK:
         editable={false}
         renderLeftAccessory={() => selectedOption?.icon({ size: heightPercentageToDP(4), style: styles.icon })}
+        renderRightAccessory={() => <Text style={ styles.dropdownArrow }>&#9660;</Text>}
       />
     </TouchableOpacity>
     <SelectModal
@@ -134,5 +133,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start'
+  },
+  dropdownArrow: {
+    opacity: 0.3,
+    fontSize: heightPercentageToDP(3)
   }
 })
