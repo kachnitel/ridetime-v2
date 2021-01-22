@@ -9,6 +9,7 @@ import { StoreContext } from '../../StoreContext'
 
 const ProfileScreen = () => {
   let { user: userStore } = useContext(StoreContext)
+  // Ignore non-editable properties
   // eslint-disable-next-line no-unused-vars
   let { store, events, friends, ...userInfo } = userStore.currentUser
 

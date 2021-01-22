@@ -1,10 +1,10 @@
 import Constants from 'expo-constants'
 
+// Use this for local development
+// (Assigns local network address)
 const getLocalUrl = () => {
-  const { manifest } = Constants
+  let { manifest } = Constants
 
-  // Use this for local development
-  // (Assigns local network address)
   return 'http://' + ((typeof manifest.packagerOpts === 'object') && manifest.packagerOpts.dev
     ? manifest.debuggerHost.split(':').shift().concat(':80')
     : 'apiUrl.example.com') + '/ridetime'
