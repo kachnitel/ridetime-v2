@@ -8,7 +8,7 @@ const SelectDifficulty = (props) => {
     .map(Number)
     .filter((level) => level > 0) // Hide "Other"
     .map((level) => {
-      let Icon = (props) => <TrailDifficultyIcon level={Number(level)} {...props} />
+      let Icon = (props) => <TrailDifficultyIcon level={level} {...props} />
       return {
         ...icons[level],
         icon: Icon

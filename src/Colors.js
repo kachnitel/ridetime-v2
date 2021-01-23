@@ -8,5 +8,6 @@ export default {
     unknown: '#ccc'
   },
   lightBackground: '#efefef',
-  highlightItem: '#ddd'
+  highlightItem: '#ddd',
+  icon: '#222'
 }

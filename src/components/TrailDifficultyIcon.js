@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Svg, { Circle, Path } from 'react-native-svg'
+import Svg, { Circle, Path, Rect } from 'react-native-svg'
 import Colors from '../Colors'
 
 const GreenCircle = (props) => <Svg width='1em' height='1em' {...props}>
@@ -8,7 +8,7 @@ const GreenCircle = (props) => <Svg width='1em' height='1em' {...props}>
 </Svg>
 
 const BlueSquare = (props) => <Svg width='1em' height='1em' {...props}>
-  <Path fill='currentColor' d='M66 66h472v472H66z' />
+  <Rect fill='currentColor' x="66" y="66" width="472" height="472" />
 </Svg>
 
 const BlackDiamond = (props) => <Svg width='1em' height='1em' {...props}>
@@ -72,10 +72,10 @@ export const icons = {
 
 const TrailDifficultyIcon = (props) => {
   let { level, size, style, ...svgProps } = props
-  let { icon: Icon, color } = icons[level] ?? icons[0]
+  let { icon: SvgIcon, color } = icons[level] ?? icons[0]
 
-  return <Icon
-    viewBox='0 0 600 600'
+  return <SvgIcon
+    viewBox='0 0 600 600' // All Trail icons have 600px viewBox
     width={ size }
     height={ size }
     { ...svgProps }

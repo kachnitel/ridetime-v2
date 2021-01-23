@@ -87,7 +87,8 @@ const OutlinedSelectWithIcon = ({
       <OutlinedTextField
         value={selectedOption?.label}
         label={label}
-        labelOffset={{ x1: -(heightPercentageToDP(4) + widthPercentageToDP(1) + 10) }} // HACK:
+        // HACK: label is offset by accessory
+        labelOffset={{ x1: -(heightPercentageToDP(4) + widthPercentageToDP(1) + 10) }}
         editable={false}
         renderLeftAccessory={() => selectedOption?.icon({ size: heightPercentageToDP(4), style: styles.icon })}
         renderRightAccessory={() => <Text style={ styles.dropdownArrow }>&#9660;</Text>}
