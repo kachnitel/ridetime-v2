@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { View, ActivityIndicator, Button } from 'react-native'
 import { OutlinedTextField } from 'rn-material-ui-textfield'
+import SelectBike from './SelectBike'
 import SelectDifficulty from './SelectDifficulty'
 
 export default class EditBasicUserInfo extends Component {
@@ -42,6 +43,11 @@ export default class EditBasicUserInfo extends Component {
         label='Experience'
         selected={this.state.userInfo?.level}
         onValueChange={(val) => this.setState({ userInfo: { ...this.state.userInfo, level: val } })}
+      />
+      <SelectBike
+        label='Primary bike type'
+        selected={this.state.userInfo?.bike}
+        onValueChange={(val) => this.setState({ userInfo: { ...this.state.userInfo, bike: val } })}
       />
       { this.state.loading
         ? <ActivityIndicator />
