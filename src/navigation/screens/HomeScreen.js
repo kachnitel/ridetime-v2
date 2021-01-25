@@ -1,15 +1,15 @@
-import React from 'react'
-import { useContext } from 'react'
-import { View, StyleSheet, Button } from 'react-native'
-import { MemoUserItem } from '../../components/UserList'
+import React, { useContext } from 'react'
+import { Button, StyleSheet, View } from 'react-native'
+import UserList, { MemoUserItem } from '../../components/UserList'
 import { StoreContext } from '../../StoreContext'
 
 const HomeScreen = () => {
   let { user: UserStore } = useContext(StoreContext)
   return <View style={styles.container}>
     <MemoUserItem user={UserStore.currentUser} />
+    <UserList ids={UserStore.currentUser.friends} itemProps={{ levelIconSize: 3 }} />
     <Button title='Log user store' onPress={ () => {
-      console.log(UserStore.users)
+      console.log(UserStore.currentUser.friends)
     }} />
   </View>
 }
