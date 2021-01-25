@@ -31,6 +31,7 @@
     "randomatic": "^3.1.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-fast-compare": "^3.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-modal": "^11.6.1",
