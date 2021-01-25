@@ -19,7 +19,8 @@
     "parser": "@babel/eslint-parser",
     "plugins": [
         "react",
-        "react-native"
+        "react-native",
+        "react-hooks"
     ],
     "rules": {
         "indent": [
@@ -50,6 +51,8 @@
         "react-native/split-platform-components": 2,
         "react-native/no-inline-styles": 2,
         "react-native/no-color-literals": 2,
-        "react-native/no-raw-text": 2
+        "react-native/no-raw-text": 2,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     }
 }
