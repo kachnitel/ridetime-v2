@@ -12,7 +12,7 @@ export default class UserStore {
   }
 
   upsert = (data: Object) => {
-    let user = this.users.find((entity) => entity.id === data.id) || new User(this)
+    let user = this.findInCollection(data.id) || new User(this)
 
     Object.entries(data).forEach(([key, val]) => {
       if (Object.keys(user).includes(key)) {
@@ -20,7 +20,7 @@ export default class UserStore {
       }
     })
 
-    !this.users.find((entity) => entity.id === user.id) && this.users.push(user)
+    !this.findInCollection(user.id) && this.users.push(user)
 
     return user
   }
@@ -42,6 +42,20 @@ export default class UserStore {
     ToastAndroid.show(`User ${user.name}'s profile updated.`, ToastAndroid.SHORT)
     return this.upsert(result)
   }
+
+  getAsync = async (id: Number) => {
+    let user = this.findInCollection(id)
+    if (user) {
+      return user
+    }
+
+    let result = await ApiConnection.get('api/users/' + id)
+    return this.upsert(
+      result.result
+    )
+  }
+
+  findInCollection = (id: Number) => this.users.find((entity) => entity.id === id)
 }
 
 export class User {
